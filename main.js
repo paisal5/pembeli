@@ -28,7 +28,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export async function ambilDaftarPembeli() {
-  const refDokumen = collection(db, "pembeli");
+  const refDokumen = collection(db, "Pembeli");
   const kueri = query(refDokumen, orderBy("nama"));
   const cuplikanKueri = await getDocs(kueri);
 
@@ -38,7 +38,7 @@ export async function ambilDaftarPembeli() {
       id: dok.id,
       nama: dok.data().nama,
       alamat: dok.data().alamat,
-      noTlpn: dok.data().noTlpn,
+      noTlpon: dok.data().noTlpon,
     });
   });
 
@@ -53,31 +53,33 @@ export function formatAngka(x) {
 
 export async function tambahPembeli(nama, alamat, noTlpn) {
   try {
-    const dokRef = await addDoc(collection(db, 'pembeli'), {
+    const dokRef = await addDoc(collection(db, 'Pembeli'), {
       nama: nama,
       alamat: alamat,
-      noTlpn: noTlpn
+      noTlpon: noTlpon
     });
-    console.log('berhasil menembah produk ' + dokRef.id);
+    console.log('berhasil menembah. produk ' + dokRef.id);
   } catch (e) {
-    console.log('gagal menambah produk ' + e);
+
+    console.log('gagal menambah Penjual ' + e);
   }
 }
 
+
 export async function hapusPembeli(docId) {
-  await deleteDoc(doc(db, "pembeli", docId));
+  await deleteDoc(doc(db, "Pembeli", docId));
 }
 
-export async function ubahPembeli(docId, nama, alamat, noTlpn) {
-  await updateDoc(doc(db, "pembeli", docId), {
+export async function ubahPembeli(docId, nama, alamat, noTlpon) {
+  await updateDoc(doc(db, "Pembeli", docId), {
     nama: nama,
     alamat: alamat,
-    noTlpn: noTlpn
+    noTlpon: noTlpon
   });
 }
 
 export async function ambilPembeli(docId) {
-  const docRef = await doc(db, "pembeli", docId);
+  const docRef = await doc(db, "Pembeli", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();
